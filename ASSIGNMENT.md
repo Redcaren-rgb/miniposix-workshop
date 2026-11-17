@@ -8,9 +8,9 @@ Rate your starting familiarity from **0 (none)** to **3 (comfortable)**. Keep th
 
 | Topic | 0–3 | One thing you already know or need to look up |
 | --- | --- | --- |
-| C++ ownership and move semantics | | |
-| POSIX file descriptors and pipes | | |
-| AI coding agents | | |
+| C++ ownership and move semantics |1| |
+| POSIX file descriptors and pipes |1| |
+| AI coding agents |2| I know how to use AI agents, but I need to verify their suggestions.|
 
 Read [README.md](README.md), run the tool checks, configure `clang22-debug`, and run the smoke and functional tests separately. A smoke pass with functional failures is the intended initial state.
 
@@ -38,8 +38,8 @@ Keep a short log of your attempts. Add rows as needed:
 
 | Attempt | Failing test or observed behavior | Help needed? | AI mistake or uncertain claim | Evidence and reason for the correction |
 | --- | --- | --- | --- | --- |
-| 1 | | | | |
-| 2 | | | | |
+| 1 | Initial functional tests failed| Yes|Some ownership behavior needed verification | |
+| 2 | Tested descriptor ownership after moving| yes| | |
 
 This exercise records what your team observed. It cannot establish that AI replaces domain knowledge without a broader controlled study.
 
