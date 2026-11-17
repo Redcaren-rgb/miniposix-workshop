@@ -18,7 +18,6 @@ Pipe Pipe::create() {
     }
 
     Pipe result;
-
     result.read_end_.reset(fds[0]);
     result.write_end_.reset(fds[1]);
 
@@ -26,4 +25,3 @@ Pipe Pipe::create() {
 }
 
 } // namespace miniposix
-

@@ -1,7 +1,6 @@
 #include "miniposix/unique_fd.hpp"
 
 #include <unistd.h>
-#include <utility>
 
 namespace miniposix {
 
@@ -46,4 +45,3 @@ void UniqueFd::reset(int fd) noexcept {
 }
 
 } // namespace miniposix
-
