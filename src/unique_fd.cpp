@@ -1,27 +1,25 @@
 #include "miniposix/unique_fd.hpp"
 
 #include <unistd.h>
+#include <utility>
 
 namespace miniposix {
 
-UniqueFd::UniqueFd(int fd) noexcept {
-    // TODO: Adopt fd, including descriptor 0. Only -1 means empty.
-    (void)fd;
-}
+UniqueFd::UniqueFd(int fd) noexcept : fd_(fd) {}
 
 UniqueFd::~UniqueFd() noexcept {
-    // TODO: Close the owned descriptor, if any.
+    if (fd_ >= 0) {
+        ::close(fd_);
+    }
 }
 
-UniqueFd::UniqueFd(UniqueFd&& other) noexcept {
-    // TODO: Transfer ownership from other; leave other empty.
-    (void)other;
-}
+UniqueFd::UniqueFd(UniqueFd&& other) noexcept
+    : fd_(other.release()) {}
 
 UniqueFd& UniqueFd::operator=(UniqueFd&& other) noexcept {
-    // TODO: Release any descriptor currently owned by *this, then transfer
-    // other. Self move assignment must be safe.
-    (void)other;
+    if (this != &other) {
+        reset(other.release());
+    }
     return *this;
 }
 
@@ -30,13 +28,22 @@ int UniqueFd::get() const noexcept {
 }
 
 int UniqueFd::release() noexcept {
-    // TODO: Return the descriptor without closing it; leave *this empty.
-    return -1;
+    const int fd = fd_;
+    fd_ = -1;
+    return fd;
 }
 
 void UniqueFd::reset(int fd) noexcept {
-    // TODO: Close the current descriptor and adopt fd. Handle reset(get()).
-    (void)fd;
+    if (fd_ == fd) {
+        return;
+    }
+
+    if (fd_ >= 0) {
+        ::close(fd_);
+    }
+
+    fd_ = fd;
 }
 
 } // namespace miniposix
+
